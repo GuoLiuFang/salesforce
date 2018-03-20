@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="SalesForce">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../classpathlib/SalesForce.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../../classpathlib/SalesForce.jar!/" />
+    </SOURCES>
+  </library>
+</component>

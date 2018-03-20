@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="force-wsc-42.0.0-uber">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../Coding/wsc/target/force-wsc-42.0.0-uber.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
