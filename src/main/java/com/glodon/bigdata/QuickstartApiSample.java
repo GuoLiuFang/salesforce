@@ -50,13 +50,13 @@ public class QuickstartApiSample {
 //            describeGlobalSample();
 
             // Describe an object
-            describeSObjectsSample();
+//            describeSObjectsSample();
 //搞清楚了，这是对每张表的详细解释。。。
             // Retrieve some data using a query
 //            querySample();
 //            querySampleTest();
 //            querySampleAccount();
-//            querySampleContact();
+            querySampleContact();
             // Log out
             logout();
         }
@@ -318,8 +318,8 @@ public class QuickstartApiSample {
         }
     }
 
-    private void querySampleContact() {
-        String soqlQuery = "SELECT FirstName, LastName FROM Contact";
+    private void querySampleContact() throws IOException {
+        String soqlQuery = "SELECT Id,IsDeleted,MasterRecordId,AccountId,LastName,FirstName,Salutation,Name,MailingStreet,MailingCity,MailingState,MailingPostalCode,MailingCountry,MailingStateCode,MailingCountryCode,MailingLatitude,MailingLongitude,MailingGeocodeAccuracy,MailingAddress,Phone,Fax,MobilePhone,ReportsToId,Email,Title,Department,CurrencyIsoCode,OwnerId,CreatedDate,CreatedById,LastModifiedDate,LastModifiedById,SystemModstamp,LastActivityDate,LastCURequestDate,LastCUUpdateDate,LastViewedDate,LastReferencedDate,EmailBouncedReason,EmailBouncedDate,IsEmailBounced,PhotoUrl,Jigsaw,JigsawContactId,PositionCategory__c FROM Contact";
         try {
             QueryResult qr = connection.query(soqlQuery);
             boolean done = false;
@@ -327,21 +327,199 @@ public class QuickstartApiSample {
             if (qr.getSize() > 0) {
                 System.out.println("\nLogged-in user can see "
                         + qr.getRecords().length + " contact records.");
-
+                FileWriter fileWriter = new FileWriter("/Users/LiuFangGuo/Downloads/SalesForceContact.data");
                 while (!done) {
                     System.out.println("");
                     SObject[] records = qr.getRecords();
                     for (int i = 0; i < records.length; ++i) {
                         Contact con = (Contact) records[i];
-                        String fName = con.getFirstName();
-                        String lName = con.getLastName();
-
-                        if (fName == null) {
-                            System.out.println("Contact " + (i + 1) + ": " + lName);
-                        } else {
-                            System.out.println("Contact " + (i + 1) + ": " + fName
-                                    + " " + lName);
+                        String id = "N/A";
+                        String isdeleted = "N/A";
+                        String masterrecordid = "N/A";
+                        String accountid = "N/A";
+                        String lastname = "N/A";
+                        String firstname = "N/A";
+                        String salutation = "N/A";
+                        String name = "N/A";
+                        String mailingstreet = "N/A";
+                        String mailingcity = "N/A";
+                        String mailingstate = "N/A";
+                        String mailingpostalcode = "N/A";
+                        String mailingcountry = "N/A";
+                        String mailingstatecode = "N/A";
+                        String mailingcountrycode = "N/A";
+                        String mailinglatitude = "N/A";
+                        String mailinglongitude = "N/A";
+                        String mailinggeocodeaccuracy = "N/A";
+                        String mailingaddress = "N/A";
+                        String phone = "N/A";
+                        String fax = "N/A";
+                        String mobilephone = "N/A";
+                        String reportstoid = "N/A";
+                        String email = "N/A";
+                        String title = "N/A";
+                        String department = "N/A";
+                        String currencyisocode = "N/A";
+                        String ownerid = "N/A";
+                        String createddate = "N/A";
+                        String createdbyid = "N/A";
+                        String lastmodifieddate = "N/A";
+                        String lastmodifiedbyid = "N/A";
+                        String systemmodstamp = "N/A";
+                        String lastactivitydate = "N/A";
+                        String lastcurequestdate = "N/A";
+                        String lastcuupdatedate = "N/A";
+                        String lastvieweddate = "N/A";
+                        String lastreferenceddate = "N/A";
+                        String emailbouncedreason = "N/A";
+                        String emailbounceddate = "N/A";
+                        String isemailbounced = "N/A";
+                        String photourl = "N/A";
+                        String jigsaw = "N/A";
+                        String jigsawcontactid = "N/A";
+                        String positioncategory__c = "N/A";
+                        if (con.getId() != null) {
+                            id = con.getId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
                         }
+                        if (con.getIsDeleted() != null) {
+                            isdeleted = con.getIsDeleted().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getMasterRecordId() != null) {
+                            masterrecordid = con.getMasterRecordId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getAccountId() != null) {
+                            accountid = con.getAccountId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getLastName() != null) {
+                            lastname = con.getLastName().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getFirstName() != null) {
+                            firstname = con.getFirstName().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getSalutation() != null) {
+                            salutation = con.getSalutation().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getName() != null) {
+                            name = con.getName().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getMailingStreet() != null) {
+                            mailingstreet = con.getMailingStreet().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getMailingCity() != null) {
+                            mailingcity = con.getMailingCity().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getMailingState() != null) {
+                            mailingstate = con.getMailingState().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getMailingPostalCode() != null) {
+                            mailingpostalcode = con.getMailingPostalCode().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getMailingCountry() != null) {
+                            mailingcountry = con.getMailingCountry().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getMailingStateCode() != null) {
+                            mailingstatecode = con.getMailingStateCode().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getMailingCountryCode() != null) {
+                            mailingcountrycode = con.getMailingCountryCode().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getMailingLatitude() != null) {
+                            mailinglatitude = con.getMailingLatitude().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getMailingLongitude() != null) {
+                            mailinglongitude = con.getMailingLongitude().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getMailingGeocodeAccuracy() != null) {
+                            mailinggeocodeaccuracy = con.getMailingGeocodeAccuracy().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getMailingAddress() != null) {
+                            mailingaddress = con.getMailingAddress().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getPhone() != null) {
+                            phone = con.getPhone().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getFax() != null) {
+                            fax = con.getFax().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getMobilePhone() != null) {
+                            mobilephone = con.getMobilePhone().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getReportsToId() != null) {
+                            reportstoid = con.getReportsToId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getEmail() != null) {
+                            email = con.getEmail().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getTitle() != null) {
+                            title = con.getTitle().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getDepartment() != null) {
+                            department = con.getDepartment().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getCurrencyIsoCode() != null) {
+                            currencyisocode = con.getCurrencyIsoCode().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getOwnerId() != null) {
+                            ownerid = con.getOwnerId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getCreatedDate() != null) {
+                            createddate = con.getCreatedDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getCreatedById() != null) {
+                            createdbyid = con.getCreatedById().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getLastModifiedDate() != null) {
+                            lastmodifieddate = con.getLastModifiedDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getLastModifiedById() != null) {
+                            lastmodifiedbyid = con.getLastModifiedById().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getSystemModstamp() != null) {
+                            systemmodstamp = con.getSystemModstamp().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getLastActivityDate() != null) {
+                            lastactivitydate = con.getLastActivityDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getLastCURequestDate() != null) {
+                            lastcurequestdate = con.getLastCURequestDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getLastCUUpdateDate() != null) {
+                            lastcuupdatedate = con.getLastCUUpdateDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getLastViewedDate() != null) {
+                            lastvieweddate = con.getLastViewedDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getLastReferencedDate() != null) {
+                            lastreferenceddate = con.getLastReferencedDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getEmailBouncedReason() != null) {
+                            emailbouncedreason = con.getEmailBouncedReason().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getEmailBouncedDate() != null) {
+                            emailbounceddate = con.getEmailBouncedDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getIsEmailBounced() != null) {
+                            isemailbounced = con.getIsEmailBounced().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getPhotoUrl() != null) {
+                            photourl = con.getPhotoUrl().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getJigsaw() != null) {
+                            jigsaw = con.getJigsaw().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getJigsawContactId() != null) {
+                            jigsawcontactid = con.getJigsawContactId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (con.getPositionCategory__c() != null) {
+                            positioncategory__c = con.getPositionCategory__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+//                        if (fName == null) {
+//                            System.out.println("Contact " + (i + 1) + ": " + lName);
+//                        } else {
+//                            System.out.println("Contact " + (i + 1) + ": " + fName
+//                                    + " " + lName);
+//                        }
+                        fileWriter.write(id + "`" + isdeleted + "`" + masterrecordid + "`" + accountid + "`" + lastname + "`" + firstname + "`" + salutation + "`" + name + "`" + mailingstreet + "`" + mailingcity + "`" + mailingstate + "`" + mailingpostalcode + "`" + mailingcountry + "`" + mailingstatecode + "`" + mailingcountrycode + "`" + mailinglatitude + "`" + mailinglongitude + "`" + mailinggeocodeaccuracy + "`" + mailingaddress + "`" + phone + "`" + fax + "`" + mobilephone + "`" + reportstoid + "`" + email + "`" + title + "`" + department + "`" + currencyisocode + "`" + ownerid + "`" + createddate + "`" + createdbyid + "`" + lastmodifieddate + "`" + lastmodifiedbyid + "`" + systemmodstamp + "`" + lastactivitydate + "`" + lastcurequestdate + "`" + lastcuupdatedate + "`" + lastvieweddate + "`" + lastreferenceddate + "`" + emailbouncedreason + "`" + emailbounceddate + "`" + isemailbounced + "`" + photourl + "`" + jigsaw + "`" + jigsawcontactid + "`" + positioncategory__c + "\n");
                     }
 
                     if (qr.isDone()) {
@@ -350,6 +528,7 @@ public class QuickstartApiSample {
                         qr = connection.queryMore(qr.getQueryLocator());
                     }
                 }
+                fileWriter.close();
             } else {
                 System.out.println("No records found.");
             }
