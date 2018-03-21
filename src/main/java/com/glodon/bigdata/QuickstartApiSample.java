@@ -50,12 +50,13 @@ public class QuickstartApiSample {
 //            describeGlobalSample();
 
             // Describe an object
-//            describeSObjectsSample();
+            describeSObjectsSample();
 //搞清楚了，这是对每张表的详细解释。。。
             // Retrieve some data using a query
 //            querySample();
 //            querySampleTest();
-            querySampleAccount();
+//            querySampleAccount();
+//            querySampleContact();
             // Log out
             logout();
         }
@@ -276,7 +277,48 @@ public class QuickstartApiSample {
         }
     }
 
+    //这个可以重命名成别的方法啦。。
     private void querySample() {
+        String soqlQuery = "SELECT FirstName, LastName FROM Contact";
+        try {
+            QueryResult qr = connection.query(soqlQuery);
+            boolean done = false;
+
+            if (qr.getSize() > 0) {
+                System.out.println("\nLogged-in user can see "
+                        + qr.getRecords().length + " contact records.");
+
+                while (!done) {
+                    System.out.println("");
+                    SObject[] records = qr.getRecords();
+                    for (int i = 0; i < records.length; ++i) {
+                        Contact con = (Contact) records[i];
+                        String fName = con.getFirstName();
+                        String lName = con.getLastName();
+
+                        if (fName == null) {
+                            System.out.println("Contact " + (i + 1) + ": " + lName);
+                        } else {
+                            System.out.println("Contact " + (i + 1) + ": " + fName
+                                    + " " + lName);
+                        }
+                    }
+
+                    if (qr.isDone()) {
+                        done = true;
+                    } else {
+                        qr = connection.queryMore(qr.getQueryLocator());
+                    }
+                }
+            } else {
+                System.out.println("No records found.");
+            }
+        } catch (ConnectionException ce) {
+            ce.printStackTrace();
+        }
+    }
+
+    private void querySampleContact() {
         String soqlQuery = "SELECT FirstName, LastName FROM Contact";
         try {
             QueryResult qr = connection.query(soqlQuery);
