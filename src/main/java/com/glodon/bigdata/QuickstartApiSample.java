@@ -15,10 +15,7 @@ import com.sforce.soap.enterprise.LoginResult;
 import com.sforce.soap.enterprise.PicklistEntry;
 import com.sforce.soap.enterprise.QueryResult;
 import com.sforce.soap.enterprise.SaveResult;
-import com.sforce.soap.enterprise.sobject.Account;
-import com.sforce.soap.enterprise.sobject.Contact;
-import com.sforce.soap.enterprise.sobject.Event;
-import com.sforce.soap.enterprise.sobject.SObject;
+import com.sforce.soap.enterprise.sobject.*;
 import com.sforce.ws.ConnectorConfig;
 import com.sforce.ws.ConnectionException;
 
@@ -56,7 +53,8 @@ public class QuickstartApiSample {
 //            querySample();
 //            querySampleTest();
 //            querySampleAccount();
-            querySampleContact();
+//            querySampleContact();
+            querySampleOrder();
             // Log out
             logout();
         }
@@ -310,6 +308,342 @@ public class QuickstartApiSample {
                         qr = connection.queryMore(qr.getQueryLocator());
                     }
                 }
+            } else {
+                System.out.println("No records found.");
+            }
+        } catch (ConnectionException ce) {
+            ce.printStackTrace();
+        }
+    }
+
+    private void querySampleOrder() throws IOException {
+        String soqlQuery = "SELECT Id,OwnerId,ContractId,AccountId,Pricebook2Id,OriginalOrderId,OpportunityId,QuoteId,EffectiveDate,EndDate,IsReductionOrder,Status,Description,CustomerAuthorizedById,CompanyAuthorizedById,Type,BillingStreet,BillingCity,BillingState,BillingPostalCode,BillingCountry,BillingStateCode,BillingCountryCode,BillingLatitude,BillingLongitude,BillingGeocodeAccuracy,BillingAddress,ShippingStreet,ShippingCity,ShippingState,ShippingPostalCode,ShippingCountry,ShippingStateCode,ShippingCountryCode,ShippingLatitude,ShippingLongitude,ShippingGeocodeAccuracy,ShippingAddress,ActivatedDate,ActivatedById,StatusCode,CurrencyIsoCode,OrderNumber,TotalAmount,CreatedDate,CreatedById,LastModifiedDate,LastModifiedById,IsDeleted,SystemModstamp,LastViewedDate,LastReferencedDate,ContainerType__c,SiebelOrderNumber__c,OrderSource__c,ReceivedAmount__c,LOYPromotionId__c,OwnerRoleName__c,LicenseOrderId__c,AdministratorName__c,AdministratorEmail__c,CurrencyBack__c,Deal_Reason__c,PriceList__c,DueAmount__c,SalesRepEmail__c,TotalDiscountRate__c,TotalInvoiceAmount__c,OriginalPricePerYear__c,ReturnOrder__c,OriginalOrder__c FROM Order";
+        try {
+            QueryResult qr = connection.query(soqlQuery);
+            boolean done = false;
+
+            if (qr.getSize() > 0) {
+                System.out.println("\nLogged-in user can see "
+                        + qr.getRecords().length + " Order records.");
+                FileWriter fileWriter = new FileWriter("/Users/LiuFangGuo/Downloads/SalesForceOrder.data");
+                while (!done) {
+                    System.out.println("");
+                    SObject[] records = qr.getRecords();
+                    for (int i = 0; i < records.length; ++i) {
+                        Order order = (Order) records[i];
+                        String id = "N/A";
+                        String ownerid = "N/A";
+                        String contractid = "N/A";
+                        String accountid = "N/A";
+                        String pricebook2id = "N/A";
+                        String originalorderid = "N/A";
+                        String opportunityid = "N/A";
+                        String quoteid = "N/A";
+                        String effectivedate = "N/A";
+                        String enddate = "N/A";
+                        String isreductionorder = "N/A";
+                        String status = "N/A";
+                        String description = "N/A";
+                        String customerauthorizedbyid = "N/A";
+                        String companyauthorizedbyid = "N/A";
+                        String type = "N/A";
+                        String billingstreet = "N/A";
+                        String billingcity = "N/A";
+                        String billingstate = "N/A";
+                        String billingpostalcode = "N/A";
+                        String billingcountry = "N/A";
+                        String billingstatecode = "N/A";
+                        String billingcountrycode = "N/A";
+                        String billinglatitude = "N/A";
+                        String billinglongitude = "N/A";
+                        String billinggeocodeaccuracy = "N/A";
+                        String billingaddress = "N/A";
+                        String shippingstreet = "N/A";
+                        String shippingcity = "N/A";
+                        String shippingstate = "N/A";
+                        String shippingpostalcode = "N/A";
+                        String shippingcountry = "N/A";
+                        String shippingstatecode = "N/A";
+                        String shippingcountrycode = "N/A";
+                        String shippinglatitude = "N/A";
+                        String shippinglongitude = "N/A";
+                        String shippinggeocodeaccuracy = "N/A";
+                        String shippingaddress = "N/A";
+                        String activateddate = "N/A";
+                        String activatedbyid = "N/A";
+                        String statuscode = "N/A";
+                        String currencyisocode = "N/A";
+                        String ordernumber = "N/A";
+                        String totalamount = "N/A";
+                        String createddate = "N/A";
+                        String createdbyid = "N/A";
+                        String lastmodifieddate = "N/A";
+                        String lastmodifiedbyid = "N/A";
+                        String isdeleted = "N/A";
+                        String systemmodstamp = "N/A";
+                        String lastvieweddate = "N/A";
+                        String lastreferenceddate = "N/A";
+                        String containertype__c = "N/A";
+                        String siebelordernumber__c = "N/A";
+                        String ordersource__c = "N/A";
+                        String receivedamount__c = "N/A";
+                        String loypromotionid__c = "N/A";
+                        String ownerrolename__c = "N/A";
+                        String licenseorderid__c = "N/A";
+                        String administratorname__c = "N/A";
+                        String administratoremail__c = "N/A";
+                        String currencyback__c = "N/A";
+//                        String authorization_status__c = "N/A";
+//                        String authorized_failed_number__c = "N/A";
+//                        String receipt_amount__c = "N/A";
+                        String deal_reason__c = "N/A";
+                        String pricelist__c = "N/A";
+                        String dueamount__c = "N/A";
+                        String salesrepemail__c = "N/A";
+                        String totaldiscountrate__c = "N/A";
+                        String totalinvoiceamount__c = "N/A";
+                        String originalpriceperyear__c = "N/A";
+                        String returnorder__c = "N/A";
+                        String originalorder__c = "N/A";
+                        if (order.getId() != null) {
+                            id = order.getId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getOwnerId() != null) {
+                            ownerid = order.getOwnerId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getContractId() != null) {
+                            contractid = order.getContractId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getAccountId() != null) {
+                            accountid = order.getAccountId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getPricebook2Id() != null) {
+                            pricebook2id = order.getPricebook2Id().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getOriginalOrderId() != null) {
+                            originalorderid = order.getOriginalOrderId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getOpportunityId() != null) {
+                            opportunityid = order.getOpportunityId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getQuoteId() != null) {
+                            quoteid = order.getQuoteId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getEffectiveDate() != null) {
+                            effectivedate = order.getEffectiveDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getEndDate() != null) {
+                            enddate = order.getEndDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getIsReductionOrder() != null) {
+                            isreductionorder = order.getIsReductionOrder().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getStatus() != null) {
+                            status = order.getStatus().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getDescription() != null) {
+                            description = order.getDescription().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getCustomerAuthorizedById() != null) {
+                            customerauthorizedbyid = order.getCustomerAuthorizedById().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getCompanyAuthorizedById() != null) {
+                            companyauthorizedbyid = order.getCompanyAuthorizedById().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getType() != null) {
+                            type = order.getType().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getBillingStreet() != null) {
+                            billingstreet = order.getBillingStreet().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getBillingCity() != null) {
+                            billingcity = order.getBillingCity().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getBillingState() != null) {
+                            billingstate = order.getBillingState().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getBillingPostalCode() != null) {
+                            billingpostalcode = order.getBillingPostalCode().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getBillingCountry() != null) {
+                            billingcountry = order.getBillingCountry().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getBillingStateCode() != null) {
+                            billingstatecode = order.getBillingStateCode().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getBillingCountryCode() != null) {
+                            billingcountrycode = order.getBillingCountryCode().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getBillingLatitude() != null) {
+                            billinglatitude = order.getBillingLatitude().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getBillingLongitude() != null) {
+                            billinglongitude = order.getBillingLongitude().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getBillingGeocodeAccuracy() != null) {
+                            billinggeocodeaccuracy = order.getBillingGeocodeAccuracy().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getBillingAddress() != null) {
+                            billingaddress = order.getBillingAddress().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getShippingStreet() != null) {
+                            shippingstreet = order.getShippingStreet().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getShippingCity() != null) {
+                            shippingcity = order.getShippingCity().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getShippingState() != null) {
+                            shippingstate = order.getShippingState().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getShippingPostalCode() != null) {
+                            shippingpostalcode = order.getShippingPostalCode().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getShippingCountry() != null) {
+                            shippingcountry = order.getShippingCountry().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getShippingStateCode() != null) {
+                            shippingstatecode = order.getShippingStateCode().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getShippingCountryCode() != null) {
+                            shippingcountrycode = order.getShippingCountryCode().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getShippingLatitude() != null) {
+                            shippinglatitude = order.getShippingLatitude().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getShippingLongitude() != null) {
+                            shippinglongitude = order.getShippingLongitude().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getShippingGeocodeAccuracy() != null) {
+                            shippinggeocodeaccuracy = order.getShippingGeocodeAccuracy().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getShippingAddress() != null) {
+                            shippingaddress = order.getShippingAddress().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getActivatedDate() != null) {
+                            activateddate = order.getActivatedDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getActivatedById() != null) {
+                            activatedbyid = order.getActivatedById().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getStatusCode() != null) {
+                            statuscode = order.getStatusCode().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getCurrencyIsoCode() != null) {
+                            currencyisocode = order.getCurrencyIsoCode().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getOrderNumber() != null) {
+                            ordernumber = order.getOrderNumber().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getTotalAmount() != null) {
+                            totalamount = order.getTotalAmount().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getCreatedDate() != null) {
+                            createddate = order.getCreatedDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getCreatedById() != null) {
+                            createdbyid = order.getCreatedById().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getLastModifiedDate() != null) {
+                            lastmodifieddate = order.getLastModifiedDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getLastModifiedById() != null) {
+                            lastmodifiedbyid = order.getLastModifiedById().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getIsDeleted() != null) {
+                            isdeleted = order.getIsDeleted().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getSystemModstamp() != null) {
+                            systemmodstamp = order.getSystemModstamp().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getLastViewedDate() != null) {
+                            lastvieweddate = order.getLastViewedDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getLastReferencedDate() != null) {
+                            lastreferenceddate = order.getLastReferencedDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getContainerType__c() != null) {
+                            containertype__c = order.getContainerType__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getSiebelOrderNumber__c() != null) {
+                            siebelordernumber__c = order.getSiebelOrderNumber__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getOrderSource__c() != null) {
+                            ordersource__c = order.getOrderSource__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getReceivedAmount__c() != null) {
+                            receivedamount__c = order.getReceivedAmount__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getLOYPromotionId__c() != null) {
+                            loypromotionid__c = order.getLOYPromotionId__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getOwnerRoleName__c() != null) {
+                            ownerrolename__c = order.getOwnerRoleName__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getLicenseOrderId__c() != null) {
+                            licenseorderid__c = order.getLicenseOrderId__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getAdministratorName__c() != null) {
+                            administratorname__c = order.getAdministratorName__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getAdministratorEmail__c() != null) {
+                            administratoremail__c = order.getAdministratorEmail__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getCurrencyBack__c() != null) {
+                            currencyback__c = order.getCurrencyBack__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+//                        if (order.getAuthorization_Status__c() != null) {
+//                            authorization_status__c = order.getAuthorization_Status__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+//                        }
+//                        if (order.getAuthorized_Failed_Number__c() != null) {
+//                            authorized_failed_number__c = order.getAuthorized_Failed_Number__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+//                        }
+//                        if (order.getReceipt_Amount__c() != null) {
+//
+//                            receipt_amount__c = order.getReceipt_Amount__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+//                        }
+                        if (order.getDeal_Reason__c() != null) {
+                            deal_reason__c = order.getDeal_Reason__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getPriceList__c() != null) {
+                            pricelist__c = order.getPriceList__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getDueAmount__c() != null) {
+                            dueamount__c = order.getDueAmount__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getSalesRepEmail__c() != null) {
+                            salesrepemail__c = order.getSalesRepEmail__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getTotalDiscountRate__c() != null) {
+                            totaldiscountrate__c = order.getTotalDiscountRate__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getTotalInvoiceAmount__c() != null) {
+                            totalinvoiceamount__c = order.getTotalInvoiceAmount__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getOriginalPricePerYear__c() != null) {
+                            originalpriceperyear__c = order.getOriginalPricePerYear__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getReturnOrder__c() != null) {
+                            returnorder__c = order.getReturnOrder__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (order.getOriginalOrder__c() != null) {
+                            originalorder__c = order.getOriginalOrder__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+//                        if (fName == null) {
+//                            System.out.println("Contact " + (i + 1) + ": " + lName);
+//                        } else {
+//                            System.out.println("Contact " + (i + 1) + ": " + fName
+//                                    + " " + lName);
+//                        }
+                        fileWriter.write(id + "`" + ownerid + "`" + contractid + "`" + accountid + "`" + pricebook2id + "`" + originalorderid + "`" + opportunityid + "`" + quoteid + "`" + effectivedate + "`" + enddate + "`" + isreductionorder + "`" + status + "`" + description + "`" + customerauthorizedbyid + "`" + companyauthorizedbyid + "`" + type + "`" + billingstreet + "`" + billingcity + "`" + billingstate + "`" + billingpostalcode + "`" + billingcountry + "`" + billingstatecode + "`" + billingcountrycode + "`" + billinglatitude + "`" + billinglongitude + "`" + billinggeocodeaccuracy + "`" + billingaddress + "`" + shippingstreet + "`" + shippingcity + "`" + shippingstate + "`" + shippingpostalcode + "`" + shippingcountry + "`" + shippingstatecode + "`" + shippingcountrycode + "`" + shippinglatitude + "`" + shippinglongitude + "`" + shippinggeocodeaccuracy + "`" + shippingaddress + "`" + activateddate + "`" + activatedbyid + "`" + statuscode + "`" + currencyisocode + "`" + ordernumber + "`" + totalamount + "`" + createddate + "`" + createdbyid + "`" + lastmodifieddate + "`" + lastmodifiedbyid + "`" + isdeleted + "`" + systemmodstamp + "`" + lastvieweddate + "`" + lastreferenceddate + "`" + containertype__c + "`" + siebelordernumber__c + "`" + ordersource__c + "`" + receivedamount__c + "`" + loypromotionid__c + "`" + ownerrolename__c + "`" + licenseorderid__c + "`" + administratorname__c + "`" + administratoremail__c + "`" + currencyback__c + "`" + deal_reason__c + "`" + pricelist__c + "`" + dueamount__c + "`" + salesrepemail__c + "`" + totaldiscountrate__c + "`" + totalinvoiceamount__c + "`" + originalpriceperyear__c + "`" + returnorder__c + "`" + originalorder__c + "\n");
+                    }
+
+                    if (qr.isDone()) {
+                        done = true;
+                    } else {
+                        qr = connection.queryMore(qr.getQueryLocator());
+                    }
+                }
+                fileWriter.close();
             } else {
                 System.out.println("No records found.");
             }
