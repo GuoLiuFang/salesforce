@@ -1,9 +1,6 @@
 package com.glodon.bigdata;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.InputStreamReader;
-import java.io.IOException;
+import java.io.*;
 
 import com.sforce.soap.enterprise.DeleteResult;
 import com.sforce.soap.enterprise.DescribeGlobalResult;
@@ -33,7 +30,7 @@ public class QuickstartApiSample {
     EnterpriseConnection connection;
     String authEndPoint = "";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         if (args.length < 1) {
             System.out.println("Usage: com.example.samples."
                     + "QuickstartApiSamples <AuthEndPoint>");
@@ -45,7 +42,7 @@ public class QuickstartApiSample {
         sample.run();
     }
 
-    public void run() {
+    public void run() throws IOException {
         // Make a login call
         if (login()) {
             // Do a describe global
@@ -57,7 +54,8 @@ public class QuickstartApiSample {
 //搞清楚了，这是对每张表的详细解释。。。
             // Retrieve some data using a query
 //            querySample();
-            querySampleTest();
+//            querySampleTest();
+            querySampleAccount();
             // Log out
             logout();
         }
@@ -310,6 +308,379 @@ public class QuickstartApiSample {
                         qr = connection.queryMore(qr.getQueryLocator());
                     }
                 }
+            } else {
+                System.out.println("No records found.");
+            }
+        } catch (ConnectionException ce) {
+            ce.printStackTrace();
+        }
+    }
+
+    private void querySampleAccount() throws IOException {
+        String soqlQuery = "SELECT Id,IsDeleted,MasterRecordId,Name,Type,RecordTypeId,ParentId,BillingStreet,BillingCity,BillingState,BillingPostalCode,BillingCountry,BillingStateCode,BillingCountryCode,BillingLatitude,BillingLongitude,BillingGeocodeAccuracy,BillingAddress,ShippingStreet,ShippingCity,ShippingState,ShippingPostalCode,ShippingCountry,ShippingStateCode,ShippingCountryCode,ShippingLatitude,ShippingLongitude,ShippingGeocodeAccuracy,ShippingAddress,Phone,Fax,Website,PhotoUrl,Industry,AnnualRevenue,NumberOfEmployees,Description,CurrencyIsoCode,OwnerId,CreatedDate,CreatedById,LastModifiedDate,LastModifiedById,SystemModstamp,LastActivityDate,LastViewedDate,LastReferencedDate,Jigsaw,JigsawCompanyId,AccountSource,SicDesc,AccountType__c,AccountLevel__c,AccountStatus__c,AccountID__c,MEContractorDiscipline__c,ContractStartDate__c,ContractEndDate__c,ContractDescription__c,Commission__c,CopyBillingAddressToShippingAddress__c,GradeElectrical__c,AccountSubType__c,Discipline__c,Grade__c,Company_Email__c,CompanyWillingness__c,PartnerType__c,ProductInterest__c,EnquiryType__c,GradeFire__c,GradeACMV__c,GradePS__c,GradeFullSpec__c,PartnerSource__c,Account_Type_for_ID__c,Account_Type_for_MY__c,DisciplineTypeMY__c,AccountCategory__c,CustomerId__c,Branch__c,CrmCustomerId__c,AccountTypeAll__c FROM Account";
+        try {
+            QueryResult qr = connection.query(soqlQuery);
+            boolean done = false;
+
+            if (qr.getSize() > 0) {
+                System.out.println("\nLogged-in user can see "
+                        + qr.getRecords().length + " Account records.");
+                FileWriter fileWriter = new FileWriter("/Users/LiuFangGuo/Downloads/SalesForceAccount.data");
+                while (!done) {
+                    System.out.println("");
+                    SObject[] records = qr.getRecords();
+                    for (int i = 0; i < records.length; ++i) {
+                        Account account = (Account) records[i];
+                        String id = "N/A";
+                        String isdeleted = "N/A";
+                        String masterrecordid = "N/A";
+                        String name = "N/A";
+                        String type = "N/A";
+                        String recordtypeid = "N/A";
+                        String parentid = "N/A";
+                        String billingstreet = "N/A";
+                        String billingcity = "N/A";
+                        String billingstate = "N/A";
+                        String billingpostalcode = "N/A";
+                        String billingcountry = "N/A";
+                        String billingstatecode = "N/A";
+                        String billingcountrycode = "N/A";
+                        String billinglatitude = "N/A";
+                        String billinglongitude = "N/A";
+                        String billinggeocodeaccuracy = "N/A";
+                        String billingaddress = "N/A";
+                        String shippingstreet = "N/A";
+                        String shippingcity = "N/A";
+                        String shippingstate = "N/A";
+                        String shippingpostalcode = "N/A";
+                        String shippingcountry = "N/A";
+                        String shippingstatecode = "N/A";
+                        String shippingcountrycode = "N/A";
+                        String shippinglatitude = "N/A";
+                        String shippinglongitude = "N/A";
+                        String shippinggeocodeaccuracy = "N/A";
+                        String shippingaddress = "N/A";
+                        String phone = "N/A";
+                        String fax = "N/A";
+                        String website = "N/A";
+                        String photourl = "N/A";
+                        String industry = "N/A";
+                        String annualrevenue = "N/A";
+                        String numberofemployees = "N/A";
+                        String description = "N/A";
+                        String currencyisocode = "N/A";
+                        String ownerid = "N/A";
+                        String createddate = "N/A";
+                        String createdbyid = "N/A";
+                        String lastmodifieddate = "N/A";
+                        String lastmodifiedbyid = "N/A";
+                        String systemmodstamp = "N/A";
+                        String lastactivitydate = "N/A";
+                        String lastvieweddate = "N/A";
+                        String lastreferenceddate = "N/A";
+                        String jigsaw = "N/A";
+                        String jigsawcompanyid = "N/A";
+                        String accountsource = "N/A";
+                        String sicdesc = "N/A";
+                        String accounttype__c = "N/A";
+                        String accountlevel__c = "N/A";
+                        String accountstatus__c = "N/A";
+                        String accountid__c = "N/A";
+                        String mecontractordiscipline__c = "N/A";
+                        String contractstartdate__c = "N/A";
+                        String contractenddate__c = "N/A";
+                        String contractdescription__c = "N/A";
+                        String commission__c = "N/A";
+                        String copybillingaddresstoshippingaddress__c = "N/A";
+                        String gradeelectrical__c = "N/A";
+                        String accountsubtype__c = "N/A";
+                        String discipline__c = "N/A";
+                        String grade__c = "N/A";
+                        String company_email__c = "N/A";
+                        String companywillingness__c = "N/A";
+                        String partnertype__c = "N/A";
+                        String productinterest__c = "N/A";
+                        String enquirytype__c = "N/A";
+                        String gradefire__c = "N/A";
+                        String gradeacmv__c = "N/A";
+                        String gradeps__c = "N/A";
+                        String gradefullspec__c = "N/A";
+                        String partnersource__c = "N/A";
+                        String account_type_for_id__c = "N/A";
+                        String account_type_for_my__c = "N/A";
+                        String disciplinetypemy__c = "N/A";
+                        String accountcategory__c = "N/A";
+                        String customerid__c = "N/A";
+                        String branch__c = "N/A";
+                        String crmcustomerid__c = "N/A";
+                        String accounttypeall__c = "N/A";
+                        if (account.getId() != null) {
+                            id = account.getId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getIsDeleted() != null) {
+                            isdeleted = account.getIsDeleted().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getMasterRecordId() != null) {
+                            masterrecordid = account.getMasterRecordId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getName() != null) {
+                            name = account.getName().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getType() != null) {
+                            type = account.getType().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getRecordTypeId() != null) {
+                            recordtypeid = account.getRecordTypeId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getParentId() != null) {
+                            parentid = account.getParentId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getBillingStreet() != null) {
+                            billingstreet = account.getBillingStreet().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getBillingCity() != null) {
+                            billingcity = account.getBillingCity().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getBillingState() != null) {
+                            billingstate = account.getBillingState().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getBillingPostalCode() != null) {
+                            billingpostalcode = account.getBillingPostalCode().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getBillingCountry() != null) {
+                            billingcountry = account.getBillingCountry().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getBillingStateCode() != null) {
+                            billingstatecode = account.getBillingStateCode().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getBillingCountryCode() != null) {
+                            billingcountrycode = account.getBillingCountryCode().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getBillingLatitude() != null) {
+                            billinglatitude = account.getBillingLatitude().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getBillingLongitude() != null) {
+                            billinglongitude = account.getBillingLongitude().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getBillingGeocodeAccuracy() != null) {
+                            billinggeocodeaccuracy = account.getBillingGeocodeAccuracy().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getBillingAddress() != null) {
+                            billingaddress = account.getBillingAddress().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getShippingStreet() != null) {
+                            shippingstreet = account.getShippingStreet().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getShippingCity() != null) {
+                            shippingcity = account.getShippingCity().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getShippingState() != null) {
+                            shippingstate = account.getShippingState().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getShippingPostalCode() != null) {
+                            shippingpostalcode = account.getShippingPostalCode().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getShippingCountry() != null) {
+                            shippingcountry = account.getShippingCountry().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getShippingStateCode() != null) {
+                            shippingstatecode = account.getShippingStateCode().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getShippingCountryCode() != null) {
+                            shippingcountrycode = account.getShippingCountryCode().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getShippingLatitude() != null) {
+                            shippinglatitude = account.getShippingLatitude().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getShippingLongitude() != null) {
+                            shippinglongitude = account.getShippingLongitude().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getShippingGeocodeAccuracy() != null) {
+                            shippinggeocodeaccuracy = account.getShippingGeocodeAccuracy().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getShippingAddress() != null) {
+                            shippingaddress = account.getShippingAddress().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getPhone() != null) {
+                            phone = account.getPhone().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getFax() != null) {
+                            fax = account.getFax().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getWebsite() != null) {
+                            website = account.getWebsite().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getPhotoUrl() != null) {
+                            photourl = account.getPhotoUrl().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getIndustry() != null) {
+                            industry = account.getIndustry().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getAnnualRevenue() != null) {
+                            annualrevenue = account.getAnnualRevenue().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getNumberOfEmployees() != null) {
+                            numberofemployees = account.getNumberOfEmployees().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getDescription() != null) {
+                            description = account.getDescription().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getCurrencyIsoCode() != null) {
+                            currencyisocode = account.getCurrencyIsoCode().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getOwnerId() != null) {
+                            ownerid = account.getOwnerId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getCreatedDate() != null) {
+                            createddate = account.getCreatedDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getCreatedById() != null) {
+                            createdbyid = account.getCreatedById().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getLastModifiedDate() != null) {
+                            lastmodifieddate = account.getLastModifiedDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getLastModifiedById() != null) {
+                            lastmodifiedbyid = account.getLastModifiedById().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getSystemModstamp() != null) {
+                            systemmodstamp = account.getSystemModstamp().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getLastActivityDate() != null) {
+                            lastactivitydate = account.getLastActivityDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getLastViewedDate() != null) {
+                            lastvieweddate = account.getLastViewedDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getLastReferencedDate() != null) {
+                            lastreferenceddate = account.getLastReferencedDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getJigsaw() != null) {
+                            jigsaw = account.getJigsaw().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getJigsawCompanyId() != null) {
+                            jigsawcompanyid = account.getJigsawCompanyId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getAccountSource() != null) {
+                            accountsource = account.getAccountSource().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getSicDesc() != null) {
+                            sicdesc = account.getSicDesc().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getAccountType__c() != null) {
+                            accounttype__c = account.getAccountType__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getAccountLevel__c() != null) {
+                            accountlevel__c = account.getAccountLevel__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getAccountStatus__c() != null) {
+                            accountstatus__c = account.getAccountStatus__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getAccountID__c() != null) {
+                            accountid__c = account.getAccountID__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getMEContractorDiscipline__c() != null) {
+                            mecontractordiscipline__c = account.getMEContractorDiscipline__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getContractStartDate__c() != null) {
+                            contractstartdate__c = account.getContractStartDate__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getContractEndDate__c() != null) {
+                            contractenddate__c = account.getContractEndDate__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getContractDescription__c() != null) {
+                            contractdescription__c = account.getContractDescription__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getCommission__c() != null) {
+                            commission__c = account.getCommission__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getCopyBillingAddressToShippingAddress__c() != null) {
+                            copybillingaddresstoshippingaddress__c = account.getCopyBillingAddressToShippingAddress__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getGradeElectrical__c() != null) {
+                            gradeelectrical__c = account.getGradeElectrical__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getAccountSubType__c() != null) {
+                            accountsubtype__c = account.getAccountSubType__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getDiscipline__c() != null) {
+                            discipline__c = account.getDiscipline__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getGrade__c() != null) {
+                            grade__c = account.getGrade__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getCompany_Email__c() != null) {
+                            company_email__c = account.getCompany_Email__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getCompanyWillingness__c() != null) {
+                            companywillingness__c = account.getCompanyWillingness__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getPartnerType__c() != null) {
+                            partnertype__c = account.getPartnerType__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getProductInterest__c() != null) {
+                            productinterest__c = account.getProductInterest__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getEnquiryType__c() != null) {
+                            enquirytype__c = account.getEnquiryType__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getGradeFire__c() != null) {
+                            gradefire__c = account.getGradeFire__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getGradeACMV__c() != null) {
+                            gradeacmv__c = account.getGradeACMV__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getGradePS__c() != null) {
+                            gradeps__c = account.getGradePS__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getGradeFullSpec__c() != null) {
+                            gradefullspec__c = account.getGradeFullSpec__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getPartnerSource__c() != null) {
+                            partnersource__c = account.getPartnerSource__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getAccount_Type_for_ID__c() != null) {
+                            account_type_for_id__c = account.getAccount_Type_for_ID__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getAccount_Type_for_MY__c() != null) {
+                            account_type_for_my__c = account.getAccount_Type_for_MY__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getDisciplineTypeMY__c() != null) {
+                            disciplinetypemy__c = account.getDisciplineTypeMY__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getAccountCategory__c() != null) {
+                            accountcategory__c = account.getAccountCategory__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getCustomerId__c() != null) {
+                            customerid__c = account.getCustomerId__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getBranch__c() != null) {
+                            branch__c = account.getBranch__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getCrmCustomerId__c() != null) {
+                            crmcustomerid__c = account.getCrmCustomerId__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (account.getAccountTypeAll__c() != null) {
+                            accounttypeall__c = account.getAccountTypeAll__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+//                        System.out.println(id + "`" + isdeleted + "`" + masterrecordid + "`" + name + "`" + type + "`" + recordtypeid + "`" + parentid + "`" + billingstreet + "`" + billingcity + "`" + billingstate + "`" + billingpostalcode + "`" + billingcountry + "`" + billingstatecode + "`" + billingcountrycode + "`" + billinglatitude + "`" + billinglongitude + "`" + billinggeocodeaccuracy + "`" + billingaddress + "`" + shippingstreet + "`" + shippingcity + "`" + shippingstate + "`" + shippingpostalcode + "`" + shippingcountry + "`" + shippingstatecode + "`" + shippingcountrycode + "`" + shippinglatitude + "`" + shippinglongitude + "`" + shippinggeocodeaccuracy + "`" + shippingaddress + "`" + phone + "`" + fax + "`" + website + "`" + photourl + "`" + industry + "`" + annualrevenue + "`" + numberofemployees + "`" + description + "`" + currencyisocode + "`" + ownerid + "`" + createddate + "`" + createdbyid + "`" + lastmodifieddate + "`" + lastmodifiedbyid + "`" + systemmodstamp + "`" + lastactivitydate + "`" + lastvieweddate + "`" + lastreferenceddate + "`" + jigsaw + "`" + jigsawcompanyid + "`" + accountsource + "`" + sicdesc + "`" + accounttype__c + "`" + accountlevel__c + "`" + accountstatus__c + "`" + accountid__c + "`" + mecontractordiscipline__c + "`" + contractstartdate__c + "`" + contractenddate__c + "`" + contractdescription__c + "`" + commission__c + "`" + copybillingaddresstoshippingaddress__c + "`" + gradeelectrical__c + "`" + accountsubtype__c + "`" + discipline__c + "`" + grade__c + "`" + company_email__c + "`" + companywillingness__c + "`" + partnertype__c + "`" + productinterest__c + "`" + enquirytype__c + "`" + gradefire__c + "`" + gradeacmv__c + "`" + gradeps__c + "`" + gradefullspec__c + "`" + partnersource__c + "`" + account_type_for_id__c + "`" + account_type_for_my__c + "`" + disciplinetypemy__c + "`" + accountcategory__c + "`" + customerid__c + "`" + branch__c + "`" + crmcustomerid__c + "`" + accounttypeall__c);
+//                        if (fName == null) {
+//                            System.out.println("Contact " + (i + 1) + ": " + lName);
+//                        } else {
+//                            System.out.println("Contact " + (i + 1) + ": " + fName
+//                                    + " " + lName);
+//                        }
+                        fileWriter.write(id + "`" + isdeleted + "`" + masterrecordid + "`" + name + "`" + type + "`" + recordtypeid + "`" + parentid + "`" + billingstreet + "`" + billingcity + "`" + billingstate + "`" + billingpostalcode + "`" + billingcountry + "`" + billingstatecode + "`" + billingcountrycode + "`" + billinglatitude + "`" + billinglongitude + "`" + billinggeocodeaccuracy + "`" + billingaddress + "`" + shippingstreet + "`" + shippingcity + "`" + shippingstate + "`" + shippingpostalcode + "`" + shippingcountry + "`" + shippingstatecode + "`" + shippingcountrycode + "`" + shippinglatitude + "`" + shippinglongitude + "`" + shippinggeocodeaccuracy + "`" + shippingaddress + "`" + phone + "`" + fax + "`" + website + "`" + photourl + "`" + industry + "`" + annualrevenue + "`" + numberofemployees + "`" + description + "`" + currencyisocode + "`" + ownerid + "`" + createddate + "`" + createdbyid + "`" + lastmodifieddate + "`" + lastmodifiedbyid + "`" + systemmodstamp + "`" + lastactivitydate + "`" + lastvieweddate + "`" + lastreferenceddate + "`" + jigsaw + "`" + jigsawcompanyid + "`" + accountsource + "`" + sicdesc + "`" + accounttype__c + "`" + accountlevel__c + "`" + accountstatus__c + "`" + accountid__c + "`" + mecontractordiscipline__c + "`" + contractstartdate__c + "`" + contractenddate__c + "`" + contractdescription__c + "`" + commission__c + "`" + copybillingaddresstoshippingaddress__c + "`" + gradeelectrical__c + "`" + accountsubtype__c + "`" + discipline__c + "`" + grade__c + "`" + company_email__c + "`" + companywillingness__c + "`" + partnertype__c + "`" + productinterest__c + "`" + enquirytype__c + "`" + gradefire__c + "`" + gradeacmv__c + "`" + gradeps__c + "`" + gradefullspec__c + "`" + partnersource__c + "`" + account_type_for_id__c + "`" + account_type_for_my__c + "`" + disciplinetypemy__c + "`" + accountcategory__c + "`" + customerid__c + "`" + branch__c + "`" + crmcustomerid__c + "`" + accounttypeall__c + "\n");
+
+                    }
+
+                    if (qr.isDone()) {
+                        done = true;
+                    } else {
+                        qr = connection.queryMore(qr.getQueryLocator());
+                    }
+                }
+                fileWriter.close();
             } else {
                 System.out.println("No records found.");
             }
