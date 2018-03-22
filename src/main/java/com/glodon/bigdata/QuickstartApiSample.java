@@ -54,7 +54,8 @@ public class QuickstartApiSample {
 //            querySampleTest();
 //            querySampleAccount();
 //            querySampleContact();
-            querySampleOrder();
+//            querySampleOrder();
+            querySampleOpportunity();
             // Log out
             logout();
         }
@@ -308,6 +309,241 @@ public class QuickstartApiSample {
                         qr = connection.queryMore(qr.getQueryLocator());
                     }
                 }
+            } else {
+                System.out.println("No records found.");
+            }
+        } catch (ConnectionException ce) {
+            ce.printStackTrace();
+        }
+    }
+
+    private void querySampleOpportunity() throws IOException {
+        String soqlQuery = "SELECT Id,IsDeleted,AccountId,RecordTypeId,Name,Description,StageName,Amount,Probability,CloseDate,Type,NextStep,LeadSource,IsClosed,IsWon,ForecastCategory,ForecastCategoryName,CurrencyIsoCode,CampaignId,HasOpportunityLineItem,Pricebook2Id,OwnerId,CreatedDate,CreatedById,LastModifiedDate,LastModifiedById,SystemModstamp,LastActivityDate,FiscalQuarter,FiscalYear,Fiscal,LastViewedDate,LastReferencedDate,SyncedQuoteId,ContractId,HasOpenActivity,HasOverdueTask,Budget_Confirmed__c,Discovery_Completed__c,ROI_Analysis_Completed__c,WinReason__c,SycOrNot__c,LossReason__c,SecondaryCampaignSource__c,Authority__c,Budget__c,CommittedTimeline__c,SolutionFit__c,StageforReport__c FROM Opportunity";
+        try {
+            QueryResult qr = connection.query(soqlQuery);
+            boolean done = false;
+
+            if (qr.getSize() > 0) {
+                System.out.println("\nLogged-in user can see "
+                        + qr.getRecords().length + " Opportunity records.");
+                FileWriter fileWriter = new FileWriter("/Users/LiuFangGuo/Downloads/SalesForceOpportunity.data");
+                while (!done) {
+                    System.out.println("");
+                    SObject[] records = qr.getRecords();
+                    for (int i = 0; i < records.length; ++i) {
+                        Opportunity opportunity = (Opportunity) records[i];
+                        String id = "N/A";
+                        String isdeleted = "N/A";
+                        String accountid = "N/A";
+                        String recordtypeid = "N/A";
+                        String name = "N/A";
+                        String description = "N/A";
+                        String stagename = "N/A";
+                        String amount = "N/A";
+                        String probability = "N/A";
+                        String closedate = "N/A";
+                        String type = "N/A";
+                        String nextstep = "N/A";
+                        String leadsource = "N/A";
+                        String isclosed = "N/A";
+                        String iswon = "N/A";
+                        String forecastcategory = "N/A";
+                        String forecastcategoryname = "N/A";
+                        String currencyisocode = "N/A";
+                        String campaignid = "N/A";
+                        String hasopportunitylineitem = "N/A";
+                        String pricebook2id = "N/A";
+                        String ownerid = "N/A";
+                        String createddate = "N/A";
+                        String createdbyid = "N/A";
+                        String lastmodifieddate = "N/A";
+                        String lastmodifiedbyid = "N/A";
+                        String systemmodstamp = "N/A";
+                        String lastactivitydate = "N/A";
+                        String fiscalquarter = "N/A";
+                        String fiscalyear = "N/A";
+                        String fiscal = "N/A";
+                        String lastvieweddate = "N/A";
+                        String lastreferenceddate = "N/A";
+                        String syncedquoteid = "N/A";
+                        String contractid = "N/A";
+                        String hasopenactivity = "N/A";
+                        String hasoverduetask = "N/A";
+                        String budget_confirmed__c = "N/A";
+                        String discovery_completed__c = "N/A";
+                        String roi_analysis_completed__c = "N/A";
+                        String winreason__c = "N/A";
+                        String sycornot__c = "N/A";
+                        String lossreason__c = "N/A";
+                        String secondarycampaignsource__c = "N/A";
+                        String authority__c = "N/A";
+                        String budget__c = "N/A";
+                        String committedtimeline__c = "N/A";
+                        String solutionfit__c = "N/A";
+                        String stageforreport__c = "N/A";
+                        if (opportunity.getId() != null) {
+                            id = opportunity.getId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getIsDeleted() != null) {
+                            isdeleted = opportunity.getIsDeleted().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getAccountId() != null) {
+                            accountid = opportunity.getAccountId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getRecordTypeId() != null) {
+                            recordtypeid = opportunity.getRecordTypeId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getName() != null) {
+                            name = opportunity.getName().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getDescription() != null) {
+                            description = opportunity.getDescription().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getStageName() != null) {
+                            stagename = opportunity.getStageName().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getAmount() != null) {
+                            amount = opportunity.getAmount().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getProbability() != null) {
+                            probability = opportunity.getProbability().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getCloseDate() != null) {
+                            closedate = opportunity.getCloseDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getType() != null) {
+                            type = opportunity.getType().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getNextStep() != null) {
+                            nextstep = opportunity.getNextStep().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getLeadSource() != null) {
+                            leadsource = opportunity.getLeadSource().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getIsClosed() != null) {
+                            isclosed = opportunity.getIsClosed().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getIsWon() != null) {
+                            iswon = opportunity.getIsWon().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getForecastCategory() != null) {
+                            forecastcategory = opportunity.getForecastCategory().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getForecastCategoryName() != null) {
+                            forecastcategoryname = opportunity.getForecastCategoryName().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getCurrencyIsoCode() != null) {
+                            currencyisocode = opportunity.getCurrencyIsoCode().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getCampaignId() != null) {
+                            campaignid = opportunity.getCampaignId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getHasOpportunityLineItem() != null) {
+                            hasopportunitylineitem = opportunity.getHasOpportunityLineItem().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getPricebook2Id() != null) {
+                            pricebook2id = opportunity.getPricebook2Id().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getOwnerId() != null) {
+                            ownerid = opportunity.getOwnerId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getCreatedDate() != null) {
+                            createddate = opportunity.getCreatedDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getCreatedById() != null) {
+                            createdbyid = opportunity.getCreatedById().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getLastModifiedDate() != null) {
+                            lastmodifieddate = opportunity.getLastModifiedDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getLastModifiedById() != null) {
+                            lastmodifiedbyid = opportunity.getLastModifiedById().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getSystemModstamp() != null) {
+                            systemmodstamp = opportunity.getSystemModstamp().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getLastActivityDate() != null) {
+                            lastactivitydate = opportunity.getLastActivityDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getFiscalQuarter() != null) {
+                            fiscalquarter = opportunity.getFiscalQuarter().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getFiscalYear() != null) {
+                            fiscalyear = opportunity.getFiscalYear().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getFiscal() != null) {
+                            fiscal = opportunity.getFiscal().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getLastViewedDate() != null) {
+                            lastvieweddate = opportunity.getLastViewedDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getLastReferencedDate() != null) {
+                            lastreferenceddate = opportunity.getLastReferencedDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getSyncedQuoteId() != null) {
+                            syncedquoteid = opportunity.getSyncedQuoteId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getContractId() != null) {
+                            contractid = opportunity.getContractId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getHasOpenActivity() != null) {
+                            hasopenactivity = opportunity.getHasOpenActivity().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getHasOverdueTask() != null) {
+                            hasoverduetask = opportunity.getHasOverdueTask().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getBudget_Confirmed__c() != null) {
+                            budget_confirmed__c = opportunity.getBudget_Confirmed__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getDiscovery_Completed__c() != null) {
+                            discovery_completed__c = opportunity.getDiscovery_Completed__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getROI_Analysis_Completed__c() != null) {
+                            roi_analysis_completed__c = opportunity.getROI_Analysis_Completed__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getWinReason__c() != null) {
+                            winreason__c = opportunity.getWinReason__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getSycOrNot__c() != null) {
+                            sycornot__c = opportunity.getSycOrNot__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getLossReason__c() != null) {
+                            lossreason__c = opportunity.getLossReason__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getSecondaryCampaignSource__c() != null) {
+                            secondarycampaignsource__c = opportunity.getSecondaryCampaignSource__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getAuthority__c() != null) {
+                            authority__c = opportunity.getAuthority__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getBudget__c() != null) {
+                            budget__c = opportunity.getBudget__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getCommittedTimeline__c() != null) {
+                            committedtimeline__c = opportunity.getCommittedTimeline__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getSolutionFit__c() != null) {
+                            solutionfit__c = opportunity.getSolutionFit__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (opportunity.getStageforReport__c() != null) {
+                            stageforreport__c = opportunity.getStageforReport__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        fileWriter.write(id + "`" + isdeleted + "`" + accountid + "`" + recordtypeid + "`" + name + "`" + description + "`" + stagename + "`" + amount + "`" + probability + "`" + closedate + "`" + type + "`" + nextstep + "`" + leadsource + "`" + isclosed + "`" + iswon + "`" + forecastcategory + "`" + forecastcategoryname + "`" + currencyisocode + "`" + campaignid + "`" + hasopportunitylineitem + "`" + pricebook2id + "`" + ownerid + "`" + createddate + "`" + createdbyid + "`" + lastmodifieddate + "`" + lastmodifiedbyid + "`" + systemmodstamp + "`" + lastactivitydate + "`" + fiscalquarter + "`" + fiscalyear + "`" + fiscal + "`" + lastvieweddate + "`" + lastreferenceddate + "`" + syncedquoteid + "`" + contractid + "`" + hasopenactivity + "`" + hasoverduetask + "`" + budget_confirmed__c + "`" + discovery_completed__c + "`" + roi_analysis_completed__c + "`" + winreason__c + "`" + sycornot__c + "`" + lossreason__c + "`" + secondarycampaignsource__c + "`" + authority__c + "`" + budget__c + "`" + committedtimeline__c + "`" + solutionfit__c + "`" + stageforreport__c + "\n");
+//                        if (fName == null) {
+//                            System.out.println("Contact " + (i + 1) + ": " + lName);
+//                        } else {
+//                            System.out.println("Contact " + (i + 1) + ": " + fName
+//                                    + " " + lName);
+//                        }
+                    }
+
+                    if (qr.isDone()) {
+                        done = true;
+                    } else {
+                        qr = connection.queryMore(qr.getQueryLocator());
+                    }
+                }
+                fileWriter.close();
             } else {
                 System.out.println("No records found.");
             }
