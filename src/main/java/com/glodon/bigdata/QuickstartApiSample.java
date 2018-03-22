@@ -2,19 +2,14 @@ package com.glodon.bigdata;
 
 import java.io.*;
 
-import com.sforce.soap.enterprise.DeleteResult;
 import com.sforce.soap.enterprise.DescribeGlobalResult;
-import com.sforce.soap.enterprise.DescribeGlobalSObjectResult;
 import com.sforce.soap.enterprise.DescribeSObjectResult;
 import com.sforce.soap.enterprise.EnterpriseConnection;
-import com.sforce.soap.enterprise.Error;
 import com.sforce.soap.enterprise.Field;
 import com.sforce.soap.enterprise.FieldType;
 import com.sforce.soap.enterprise.GetUserInfoResult;
-import com.sforce.soap.enterprise.LoginResult;
 import com.sforce.soap.enterprise.PicklistEntry;
 import com.sforce.soap.enterprise.QueryResult;
-import com.sforce.soap.enterprise.SaveResult;
 import com.sforce.soap.enterprise.sobject.*;
 import com.sforce.ws.ConnectorConfig;
 import com.sforce.ws.ConnectionException;
@@ -26,16 +21,18 @@ public class QuickstartApiSample {
 
     EnterpriseConnection connection;
     String authEndPoint = "";
+    private static String path = ".";
 
     public static void main(String[] args) throws IOException {
-        if (args.length < 1) {
-            System.out.println("Usage: com.example.samples."
-                    + "QuickstartApiSamples <AuthEndPoint>");
-
-            System.exit(-1);
-        }
-
-        QuickstartApiSample sample = new QuickstartApiSample(args[0]);
+//        if (args.length < 1) {
+//            System.out.println("Usage: com.example.samples."
+//                    + "QuickstartApiSamples <AuthEndPoint>");
+//
+//            System.exit(-1);
+//        }
+        path = args[0];
+        String AuthEndPoint = "https://login.salesforce.com/services/Soap/c/42.0/0DF7F000000tdEv";
+        QuickstartApiSample sample = new QuickstartApiSample(AuthEndPoint);
         sample.run();
     }
 
@@ -51,11 +48,12 @@ public class QuickstartApiSample {
 //搞清楚了，这是对每张表的详细解释。。。
             // Retrieve some data using a query
 //            querySample();
-//            querySampleTest();
-//            querySampleAccount();
-//            querySampleContact();
-//            querySampleOrder();
+            querySampleEvent();
+            querySampleAccount();
+            querySampleContact();
+            querySampleOrder();
             querySampleOpportunity();
+            querySampleProduct2();
             // Log out
             logout();
         }
@@ -80,8 +78,10 @@ public class QuickstartApiSample {
 
     private boolean login() {
         boolean success = false;
-        String username = getUserInput("Enter username: ");
-        String password = getUserInput("Enter password: ");
+        String username = "sfsysadmin@glodon.com";
+//        String username = getUserInput("Enter username: ");
+        String password = "Celnet2017!";
+//        String password = getUserInput("Enter password: ");
 
         try {
             ConnectorConfig config = new ConnectorConfig();
@@ -317,6 +317,174 @@ public class QuickstartApiSample {
         }
     }
 
+    private void querySampleProduct2() throws IOException {
+        String soqlQuery = "SELECT Id,Name,ProductCode,Description,IsActive,CreatedDate,CreatedById,LastModifiedDate,LastModifiedById,SystemModstamp,Family,CurrencyIsoCode,ExternalDataSourceId,ExternalId,DisplayUrl,QuantityUnitOfMeasure,IsDeleted,LastViewedDate,LastReferencedDate,StockKeepingUnit,Pref_Carrier_CD__c,MnemonicSymbol__c,StreamID__c,ProductID__c,HasSubProducts__c,Sub_Type_CD__c,Pref_Ship_Meth_CD__c,Product_Type__c,ProductClassification__c,ParentProduct__c,Label__c,ComposedPackage__c FROM Product2";
+        try {
+            QueryResult qr = connection.query(soqlQuery);
+            boolean done = false;
+
+            if (qr.getSize() > 0) {
+                System.out.println("\nLogged-in user can see "
+                        + qr.getRecords().length + " Product2 records.");
+                FileWriter fileWriter = new FileWriter(path + "/SalesForceProduct2.data");
+                while (!done) {
+                    System.out.println("");
+                    SObject[] records = qr.getRecords();
+                    for (int i = 0; i < records.length; ++i) {
+                        Product2 product2 = (Product2) records[i];
+                        String id = "N/A";
+                        String name = "N/A";
+                        String productcode = "N/A";
+                        String description = "N/A";
+                        String isactive = "N/A";
+                        String createddate = "N/A";
+                        String createdbyid = "N/A";
+                        String lastmodifieddate = "N/A";
+                        String lastmodifiedbyid = "N/A";
+                        String systemmodstamp = "N/A";
+                        String family = "N/A";
+                        String currencyisocode = "N/A";
+                        String externaldatasourceid = "N/A";
+                        String externalid = "N/A";
+                        String displayurl = "N/A";
+                        String quantityunitofmeasure = "N/A";
+                        String isdeleted = "N/A";
+                        String lastvieweddate = "N/A";
+                        String lastreferenceddate = "N/A";
+                        String stockkeepingunit = "N/A";
+                        String pref_carrier_cd__c = "N/A";
+                        String mnemonicsymbol__c = "N/A";
+                        String streamid__c = "N/A";
+                        String productid__c = "N/A";
+                        String hassubproducts__c = "N/A";
+                        String sub_type_cd__c = "N/A";
+                        String pref_ship_meth_cd__c = "N/A";
+                        String product_type__c = "N/A";
+                        String productclassification__c = "N/A";
+                        String parentproduct__c = "N/A";
+                        String label__c = "N/A";
+                        String composedpackage__c = "N/A";
+                        if (product2.getId() != null) {
+                            id = product2.getId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getName() != null) {
+                            name = product2.getName().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getProductCode() != null) {
+                            productcode = product2.getProductCode().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getDescription() != null) {
+                            description = product2.getDescription().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getIsActive() != null) {
+                            isactive = product2.getIsActive().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getCreatedDate() != null) {
+                            createddate = product2.getCreatedDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getCreatedById() != null) {
+                            createdbyid = product2.getCreatedById().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getLastModifiedDate() != null) {
+                            lastmodifieddate = product2.getLastModifiedDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getLastModifiedById() != null) {
+                            lastmodifiedbyid = product2.getLastModifiedById().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getSystemModstamp() != null) {
+                            systemmodstamp = product2.getSystemModstamp().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getFamily() != null) {
+                            family = product2.getFamily().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getCurrencyIsoCode() != null) {
+                            currencyisocode = product2.getCurrencyIsoCode().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getExternalDataSourceId() != null) {
+                            externaldatasourceid = product2.getExternalDataSourceId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getExternalId() != null) {
+                            externalid = product2.getExternalId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getDisplayUrl() != null) {
+                            displayurl = product2.getDisplayUrl().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getQuantityUnitOfMeasure() != null) {
+                            quantityunitofmeasure = product2.getQuantityUnitOfMeasure().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getIsDeleted() != null) {
+                            isdeleted = product2.getIsDeleted().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getLastViewedDate() != null) {
+                            lastvieweddate = product2.getLastViewedDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getLastReferencedDate() != null) {
+                            lastreferenceddate = product2.getLastReferencedDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getStockKeepingUnit() != null) {
+                            stockkeepingunit = product2.getStockKeepingUnit().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getPref_Carrier_CD__c() != null) {
+                            pref_carrier_cd__c = product2.getPref_Carrier_CD__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getMnemonicSymbol__c() != null) {
+                            mnemonicsymbol__c = product2.getMnemonicSymbol__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getStreamID__c() != null) {
+                            streamid__c = product2.getStreamID__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getProductID__c() != null) {
+                            productid__c = product2.getProductID__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getHasSubProducts__c() != null) {
+                            hassubproducts__c = product2.getHasSubProducts__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getSub_Type_CD__c() != null) {
+                            sub_type_cd__c = product2.getSub_Type_CD__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getPref_Ship_Meth_CD__c() != null) {
+                            pref_ship_meth_cd__c = product2.getPref_Ship_Meth_CD__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getProduct_Type__c() != null) {
+                            product_type__c = product2.getProduct_Type__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getProductClassification__c() != null) {
+                            productclassification__c = product2.getProductClassification__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getParentProduct__c() != null) {
+                            parentproduct__c = product2.getParentProduct__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getLabel__c() != null) {
+                            label__c = product2.getLabel__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        if (product2.getComposedPackage__c() != null) {
+                            composedpackage__c = product2.getComposedPackage__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
+                        }
+                        fileWriter.write(id + "`" + name + "`" + productcode + "`" + description + "`" + isactive + "`" + createddate + "`" + createdbyid + "`" + lastmodifieddate + "`" + lastmodifiedbyid + "`" + systemmodstamp + "`" + family + "`" + currencyisocode + "`" + externaldatasourceid + "`" + externalid + "`" + displayurl + "`" + quantityunitofmeasure + "`" + isdeleted + "`" + lastvieweddate + "`" + lastreferenceddate + "`" + stockkeepingunit + "`" + pref_carrier_cd__c + "`" + mnemonicsymbol__c + "`" + streamid__c + "`" + productid__c + "`" + hassubproducts__c + "`" + sub_type_cd__c + "`" + pref_ship_meth_cd__c + "`" + product_type__c + "`" + productclassification__c + "`" + parentproduct__c + "`" + label__c + "`" + composedpackage__c + "\n");
+
+//                        if (fName == null) {
+//                            System.out.println("Contact " + (i + 1) + ": " + lName);
+//                        } else {
+//                            System.out.println("Contact " + (i + 1) + ": " + fName
+//                                    + " " + lName);
+//                        }
+                    }
+
+                    if (qr.isDone()) {
+                        done = true;
+                    } else {
+                        qr = connection.queryMore(qr.getQueryLocator());
+                    }
+                }
+                fileWriter.close();
+            } else {
+                System.out.println("No records found.");
+            }
+        } catch (ConnectionException ce) {
+            ce.printStackTrace();
+        }
+    }
+
     private void querySampleOpportunity() throws IOException {
         String soqlQuery = "SELECT Id,IsDeleted,AccountId,RecordTypeId,Name,Description,StageName,Amount,Probability,CloseDate,Type,NextStep,LeadSource,IsClosed,IsWon,ForecastCategory,ForecastCategoryName,CurrencyIsoCode,CampaignId,HasOpportunityLineItem,Pricebook2Id,OwnerId,CreatedDate,CreatedById,LastModifiedDate,LastModifiedById,SystemModstamp,LastActivityDate,FiscalQuarter,FiscalYear,Fiscal,LastViewedDate,LastReferencedDate,SyncedQuoteId,ContractId,HasOpenActivity,HasOverdueTask,Budget_Confirmed__c,Discovery_Completed__c,ROI_Analysis_Completed__c,WinReason__c,SycOrNot__c,LossReason__c,SecondaryCampaignSource__c,Authority__c,Budget__c,CommittedTimeline__c,SolutionFit__c,StageforReport__c FROM Opportunity";
         try {
@@ -326,7 +494,7 @@ public class QuickstartApiSample {
             if (qr.getSize() > 0) {
                 System.out.println("\nLogged-in user can see "
                         + qr.getRecords().length + " Opportunity records.");
-                FileWriter fileWriter = new FileWriter("/Users/LiuFangGuo/Downloads/SalesForceOpportunity.data");
+                FileWriter fileWriter = new FileWriter(path + "/SalesForceOpportunity.data");
                 while (!done) {
                     System.out.println("");
                     SObject[] records = qr.getRecords();
@@ -561,7 +729,7 @@ public class QuickstartApiSample {
             if (qr.getSize() > 0) {
                 System.out.println("\nLogged-in user can see "
                         + qr.getRecords().length + " Order records.");
-                FileWriter fileWriter = new FileWriter("/Users/LiuFangGuo/Downloads/SalesForceOrder.data");
+                FileWriter fileWriter = new FileWriter(path + "/SalesForceOrder.data");
                 while (!done) {
                     System.out.println("");
                     SObject[] records = qr.getRecords();
@@ -897,7 +1065,7 @@ public class QuickstartApiSample {
             if (qr.getSize() > 0) {
                 System.out.println("\nLogged-in user can see "
                         + qr.getRecords().length + " contact records.");
-                FileWriter fileWriter = new FileWriter("/Users/LiuFangGuo/Downloads/SalesForceContact.data");
+                FileWriter fileWriter = new FileWriter(path + "/SalesForceContact.data");
                 while (!done) {
                     System.out.println("");
                     SObject[] records = qr.getRecords();
@@ -1116,7 +1284,7 @@ public class QuickstartApiSample {
             if (qr.getSize() > 0) {
                 System.out.println("\nLogged-in user can see "
                         + qr.getRecords().length + " Account records.");
-                FileWriter fileWriter = new FileWriter("/Users/LiuFangGuo/Downloads/SalesForceAccount.data");
+                FileWriter fileWriter = new FileWriter(path + "/SalesForceAccount.data");
                 while (!done) {
                     System.out.println("");
                     SObject[] records = qr.getRecords();
@@ -1480,7 +1648,7 @@ public class QuickstartApiSample {
         }
     }
 
-    private void querySampleTest() {
+    private void querySampleEvent() throws IOException {
         String soqlQuery = "SELECT Id,WhoId,WhatId,WhoCount,WhatCount,Subject,Location,IsAllDayEvent,ActivityDateTime,ActivityDate,DurationInMinutes,StartDateTime,EndDateTime,Description,AccountId,OwnerId,CurrencyIsoCode,Type,IsPrivate,ShowAs,IsDeleted,IsChild,IsGroupEvent,GroupEventType,CreatedDate,CreatedById,LastModifiedDate,LastModifiedById,SystemModstamp,IsArchived,RecurrenceActivityId,IsRecurrence,RecurrenceStartDateTime,RecurrenceEndDateOnly,RecurrenceTimeZoneSidKey,RecurrenceType,RecurrenceInterval,RecurrenceDayOfWeekMask,RecurrenceDayOfMonth,RecurrenceInstance,RecurrenceMonthOfYear,ReminderDateTime,IsReminderSet,EventSubtype FROM Event";
         try {
             QueryResult qr = connection.query(soqlQuery);
@@ -1489,7 +1657,7 @@ public class QuickstartApiSample {
             if (qr.getSize() > 0) {
                 System.out.println("\nLogged-in user can see "
                         + qr.getRecords().length + " Event records.");
-
+                FileWriter fileWriter = new FileWriter(path + "/SalesForceEvent.data");
                 while (!done) {
                     System.out.println("");
                     SObject[] records = qr.getRecords();
@@ -1672,7 +1840,6 @@ public class QuickstartApiSample {
                             eventsubtype = event.getEventSubtype().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");
                         }
 
-                        System.out.println(id + "`" + whoid + "`" + whatid + "`" + whocount + "`" + whatcount + "`" + subject + "`" + location + "`" + isalldayevent + "`" + activitydatetime + "`" + activitydate + "`" + durationinminutes + "`" + startdatetime + "`" + enddatetime + "`" + description + "`" + accountid + "`" + ownerid + "`" + currencyisocode + "`" + type + "`" + isprivate + "`" + showas + "`" + isdeleted + "`" + ischild + "`" + isgroupevent + "`" + groupeventtype + "`" + createddate + "`" + createdbyid + "`" + lastmodifieddate + "`" + lastmodifiedbyid + "`" + systemmodstamp + "`" + isarchived + "`" + recurrenceactivityid + "`" + isrecurrence + "`" + recurrencestartdatetime + "`" + recurrenceenddateonly + "`" + recurrencetimezonesidkey + "`" + recurrencetype + "`" + recurrenceinterval + "`" + recurrencedayofweekmask + "`" + recurrencedayofmonth + "`" + recurrenceinstance + "`" + recurrencemonthofyear + "`" + reminderdatetime + "`" + isreminderset + "`" + eventsubtype);
 //                        if (fName == null) {
 //                            System.out.println("Contact " + (i + 1) + ": " + lName);
 //                        } else {
@@ -1680,7 +1847,7 @@ public class QuickstartApiSample {
 //                                    + " " + lName);
 //                        }
 
-
+                        fileWriter.write(id + "`" + whoid + "`" + whatid + "`" + whocount + "`" + whatcount + "`" + subject + "`" + location + "`" + isalldayevent + "`" + activitydatetime + "`" + activitydate + "`" + durationinminutes + "`" + startdatetime + "`" + enddatetime + "`" + description + "`" + accountid + "`" + ownerid + "`" + currencyisocode + "`" + type + "`" + isprivate + "`" + showas + "`" + isdeleted + "`" + ischild + "`" + isgroupevent + "`" + groupeventtype + "`" + createddate + "`" + createdbyid + "`" + lastmodifieddate + "`" + lastmodifiedbyid + "`" + systemmodstamp + "`" + isarchived + "`" + recurrenceactivityid + "`" + isrecurrence + "`" + recurrencestartdatetime + "`" + recurrenceenddateonly + "`" + recurrencetimezonesidkey + "`" + recurrencetype + "`" + recurrenceinterval + "`" + recurrencedayofweekmask + "`" + recurrencedayofmonth + "`" + recurrenceinstance + "`" + recurrencemonthofyear + "`" + reminderdatetime + "`" + isreminderset + "`" + eventsubtype + "\n");
                     }
 
                     if (qr.isDone()) {
@@ -1689,6 +1856,7 @@ public class QuickstartApiSample {
                         qr = connection.queryMore(qr.getQueryLocator());
                     }
                 }
+                fileWriter.close();
             } else {
                 System.out.println("No records found.");
             }
