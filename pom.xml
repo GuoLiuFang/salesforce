@@ -1,25 +1,68 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.glodon.bigdata</groupId>
-  <artifactId>salesforce.for.bigdata</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+    <groupId>com.glodon.bigdata</groupId>
+    <artifactId>salesforce.for.bigdata</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
-  <name>salesforce.for.bigdata</name>
-  <url>http://maven.apache.org</url>
+    <name>salesforce.for.bigdata</name>
+    <url>http://maven.apache.org</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>com.funcoming.externalJar</groupId>-->
+        <!--<artifactId>salesforce-wsc</artifactId>-->
+        <!--<version>1.0</version>-->
+        <!--<scope>system</scope>-->
+        <!--<systemPath>/Users/LiuFangGuo/Documents/classpathlib/SalesForce.jar</systemPath>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>com.funcoming.externalJar</groupId>-->
+        <!--<artifactId>force-wsc-42.0.0-uber</artifactId>-->
+        <!--<version>1.0</version>-->
+        <!--<scope>system</scope>-->
+        <!--<systemPath>/Users/LiuFangGuo/Documents/Coding/wsc/target/force-wsc-42.0.0-uber.jar</systemPath>-->
+        <!--</dependency>-->
+    </dependencies>
+    <!--<build>-->
+
+    <!--<plugins>-->
+    <!--<plugin>-->
+    <!--&lt;!&ndash; NOTE: We don't need a groupId specification because the group is-->
+    <!--org.apache.maven.plugins ...which is assumed by default.-->
+    <!--&ndash;&gt;-->
+    <!--<artifactId>maven-assembly-plugin</artifactId>-->
+    <!--<version>2.6</version>-->
+    <!--<configuration>-->
+
+    <!--<descriptorRefs>-->
+    <!--<descriptorRef>jar-with-dependencies</descriptorRef>-->
+    <!--</descriptorRefs>-->
+
+    <!--</configuration>-->
+    <!--<executions>-->
+    <!--<execution>-->
+    <!--<id>make-assembly</id>&lt;!&ndash; this is used for inheritance merges &ndash;&gt;-->
+    <!--<phase>package</phase>-->
+    <!--<goals>-->
+    <!--<goal>single</goal>-->
+    <!--</goals>-->
+    <!--</execution>-->
+    <!--</executions>-->
+    <!--</plugin>-->
+    <!--</plugins>-->
+
+    <!--</build>-->
 </project>
