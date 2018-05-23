@@ -54,6 +54,7 @@ public class QuickstartApiSample {
             querySampleOrder();
             querySampleOpportunity();
             querySampleProduct2();
+            querySampleOrderItem();
             // Log out
             logout();
         }
@@ -317,6 +318,125 @@ public class QuickstartApiSample {
         }
     }
 
+    private void querySampleOrderItem() throws IOException {
+        String soqlQuery = "SELECT Id,Product2Id,IsDeleted,OrderId,PricebookEntryId,OriginalOrderItemId,AvailableQuantity,Quantity,CurrencyIsoCode,UnitPrice,ListPrice,TotalPrice,ServiceDate,EndDate,Description,CreatedDate,CreatedById,LastModifiedDate,LastModifiedById,SystemModstamp,OrderItemNumber,ProductHasSubProducts__c,ParentOrderItem__c,ProductID__c,PriceBook__c,MultiUserLicenseNumberAdded__c,CombinationType__c,DongleNumber__c,NotToAddSubProducts__c,NumNodesForReport__c,OriginalPricePerYear__c,ProductLineTotalPrice__c,DiscountRate__c,AccountId__c,Type__c,Unit__c,ComposedPackage__c,SiebelOrderNumber__c,Is_Return_Order_back__c from OrderItem";
+        try {
+            QueryResult qr = connection.query(soqlQuery);
+            boolean done = false;
+
+            if (qr.getSize() > 0) {
+                System.out.println("\nLogged-in user can see "
+                        + qr.getRecords().length + " OrderItem records.");
+                FileWriter fileWriter = new FileWriter(path + "/SalesForceOrderItem.data");
+                while (!done) {
+                    System.out.println("");
+                    SObject[] records = qr.getRecords();
+                    for (int i = 0; i < records.length; ++i) {
+                        OrderItem orderitem = (OrderItem) records[i];
+                        String id = "N/A";
+                        String product2id = "N/A";
+                        String isdeleted = "N/A";
+                        String orderid = "N/A";
+                        String pricebookentryid = "N/A";
+                        String originalorderitemid = "N/A";
+                        String availablequantity = "N/A";
+                        String quantity = "N/A";
+                        String currencyisocode = "N/A";
+                        String unitprice = "N/A";
+                        String listprice = "N/A";
+                        String totalprice = "N/A";
+                        String servicedate = "N/A";
+                        String enddate = "N/A";
+                        String description = "N/A";
+                        String createddate = "N/A";
+                        String createdbyid = "N/A";
+                        String lastmodifieddate = "N/A";
+                        String lastmodifiedbyid = "N/A";
+                        String systemmodstamp = "N/A";
+                        String orderitemnumber = "N/A";
+                        String producthassubproducts__c = "N/A";
+                        String parentorderitem__c = "N/A";
+                        String productid__c = "N/A";
+                        String pricebook__c = "N/A";
+                        String multiuserlicensenumberadded__c = "N/A";
+                        String combinationtype__c = "N/A";
+                        String donglenumber__c = "N/A";
+                        String nottoaddsubproducts__c = "N/A";
+                        String numnodesforreport__c = "N/A";
+                        String originalpriceperyear__c = "N/A";
+                        String productlinetotalprice__c = "N/A";
+                        String discountrate__c = "N/A";
+                        String accountid__c = "N/A";
+                        String type__c = "N/A";
+                        String unit__c = "N/A";
+                        String composedpackage__c = "N/A";
+                        String siebelordernumber__c = "N/A";
+                        String is_return_order_back__c = "N/A";
+                        if(orderitem.getId() != null) { id = orderitem.getId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getProduct2Id() != null) { product2id = orderitem.getProduct2Id().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getIsDeleted() != null) { isdeleted = orderitem.getIsDeleted().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getOrderId() != null) { orderid = orderitem.getOrderId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getPricebookEntryId() != null) { pricebookentryid = orderitem.getPricebookEntryId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getOriginalOrderItemId() != null) { originalorderitemid = orderitem.getOriginalOrderItemId().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getAvailableQuantity() != null) { availablequantity = orderitem.getAvailableQuantity().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getQuantity() != null) { quantity = orderitem.getQuantity().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getCurrencyIsoCode() != null) { currencyisocode = orderitem.getCurrencyIsoCode().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getUnitPrice() != null) { unitprice = orderitem.getUnitPrice().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getListPrice() != null) { listprice = orderitem.getListPrice().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getTotalPrice() != null) { totalprice = orderitem.getTotalPrice().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getServiceDate() != null) { servicedate = orderitem.getServiceDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getEndDate() != null) { enddate = orderitem.getEndDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getDescription() != null) { description = orderitem.getDescription().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getCreatedDate() != null) { createddate = orderitem.getCreatedDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getCreatedById() != null) { createdbyid = orderitem.getCreatedById().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getLastModifiedDate() != null) { lastmodifieddate = orderitem.getLastModifiedDate().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getLastModifiedById() != null) { lastmodifiedbyid = orderitem.getLastModifiedById().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getSystemModstamp() != null) { systemmodstamp = orderitem.getSystemModstamp().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getOrderItemNumber() != null) { orderitemnumber = orderitem.getOrderItemNumber().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getProductHasSubProducts__c() != null) { producthassubproducts__c = orderitem.getProductHasSubProducts__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getParentOrderItem__c() != null) { parentorderitem__c = orderitem.getParentOrderItem__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getProductID__c() != null) { productid__c = orderitem.getProductID__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getPriceBook__c() != null) { pricebook__c = orderitem.getPriceBook__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getMultiUserLicenseNumberAdded__c() != null) { multiuserlicensenumberadded__c = orderitem.getMultiUserLicenseNumberAdded__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getCombinationType__c() != null) { combinationtype__c = orderitem.getCombinationType__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getDongleNumber__c() != null) { donglenumber__c = orderitem.getDongleNumber__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getNotToAddSubProducts__c() != null) { nottoaddsubproducts__c = orderitem.getNotToAddSubProducts__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getNumNodesForReport__c() != null) { numnodesforreport__c = orderitem.getNumNodesForReport__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getOriginalPricePerYear__c() != null) { originalpriceperyear__c = orderitem.getOriginalPricePerYear__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getProductLineTotalPrice__c() != null) { productlinetotalprice__c = orderitem.getProductLineTotalPrice__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getDiscountRate__c() != null) { discountrate__c = orderitem.getDiscountRate__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getAccountId__c() != null) { accountid__c = orderitem.getAccountId__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getType__c() != null) { type__c = orderitem.getType__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getUnit__c() != null) { unit__c = orderitem.getUnit__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getComposedPackage__c() != null) { composedpackage__c = orderitem.getComposedPackage__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getSiebelOrderNumber__c() != null) { siebelordernumber__c = orderitem.getSiebelOrderNumber__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+                        if(orderitem.getIs_Return_Order_back__c() != null) { is_return_order_back__c = orderitem.getIs_Return_Order_back__c().toString().replaceAll("[\r\n]+", "&&").replaceAll("`", "");}
+
+
+                        fileWriter.write(id+ "`" + product2id+ "`" + isdeleted+ "`" + orderid+ "`" + pricebookentryid+ "`" + originalorderitemid+ "`" + availablequantity+ "`" + quantity+ "`" + currencyisocode+ "`" + unitprice+ "`" + listprice+ "`" + totalprice+ "`" + servicedate+ "`" + enddate+ "`" + description+ "`" + createddate+ "`" + createdbyid+ "`" + lastmodifieddate+ "`" + lastmodifiedbyid+ "`" + systemmodstamp+ "`" + orderitemnumber+ "`" + producthassubproducts__c+ "`" + parentorderitem__c+ "`" + productid__c+ "`" + pricebook__c+ "`" + multiuserlicensenumberadded__c+ "`" + combinationtype__c+ "`" + donglenumber__c+ "`" + nottoaddsubproducts__c+ "`" + numnodesforreport__c+ "`" + originalpriceperyear__c+ "`" + productlinetotalprice__c+ "`" + discountrate__c+ "`" + accountid__c+ "`" + type__c+ "`" + unit__c+ "`" + composedpackage__c+ "`" + siebelordernumber__c+ "`" + is_return_order_back__c + "\n");
+
+//                        if (fName == null) {
+//                            System.out.println("Contact " + (i + 1) + ": " + lName);
+//                        } else {
+//                            System.out.println("Contact " + (i + 1) + ": " + fName
+//                                    + " " + lName);
+//                        }
+                    }
+
+                    if (qr.isDone()) {
+                        done = true;
+                    } else {
+                        qr = connection.queryMore(qr.getQueryLocator());
+                    }
+                }
+                fileWriter.close();
+            } else {
+                System.out.println("No records found.");
+            }
+        } catch (ConnectionException ce) {
+            ce.printStackTrace();
+        }
+    }
     private void querySampleProduct2() throws IOException {
         String soqlQuery = "SELECT Id,Name,ProductCode,Description,IsActive,CreatedDate,CreatedById,LastModifiedDate,LastModifiedById,SystemModstamp,Family,CurrencyIsoCode,ExternalDataSourceId,ExternalId,DisplayUrl,QuantityUnitOfMeasure,IsDeleted,LastViewedDate,LastReferencedDate,StockKeepingUnit,Pref_Carrier_CD__c,MnemonicSymbol__c,StreamID__c,ProductID__c,HasSubProducts__c,Sub_Type_CD__c,Pref_Ship_Meth_CD__c,Product_Type__c,ProductClassification__c,ParentProduct__c,Label__c,ComposedPackage__c FROM Product2";
         try {
